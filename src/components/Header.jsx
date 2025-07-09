@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ConsultationModal } from './ConsultationModal';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [hideOnMobile, setHideOnMobile] = useState(false);
+  const lastScrollY = useRef(0);
+
   const navLinks = [
     { href: '#services', label: 'Rozwiązania' },
     { href: '#about', label: 'Dlaczego my?' },
@@ -11,16 +14,42 @@ export const Header = () => {
     { href: '#contact', label: 'Kontakt' },
   ];
 
+  // Hide header on scroll down, show on scroll up (mobile only)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerWidth > 768) return; // Only on mobile
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY.current && currentScrollY > 40) {
+        setHideOnMobile(true); // scrolling down
+      } else {
+        setHideOnMobile(false); // scrolling up
+      }
+      lastScrollY.current = currentScrollY;
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Hide header when modal is open
+  const headerHidden = modalOpen || hideOnMobile;
+
   return (
-    <header className="bg-gradient-to-b from-gray-900 via-gray-900/90 to-gray-800/80 shadow-lg border-b border-cyan-500/30 fixed top-0 left-0 right-0 z-50">
-      <div className="container mx-auto px-3 py-1 md:px-6 md:py-2 flex justify-between items-center">
+    <header
+      className={
+        `bg-gradient-to-b from-gray-900 via-gray-900/90 to-gray-800/80 shadow-lg border-b border-cyan-500/30 fixed top-0 left-0 right-0 z-50 transition-all duration-300
+        ${headerHidden ? 'opacity-0 pointer-events-none translate-y-[-100%]' : 'opacity-100 pointer-events-auto translate-y-0'}
+        backdrop-blur-md md:backdrop-blur-none`
+      }
+      style={{ minHeight: '56px' }}
+    >
+      <div className="container mx-auto px-3 py-1 md:px-6 md:py-2 flex justify-between items-center min-h-[56px]">
         <a href="/" aria-label="OpenPol homepage" className="flex items-center space-x-3 group transition-all duration-200">
           <img
             src="/img/logo/logo.png"
             alt="OpenPol Logo"
-            className="h-24 w-auto object-contain group-hover:scale-110 transition-transform duration-200 drop-shadow-2xl brightness-150"
+            className="h-16 md:h-24 w-auto object-contain group-hover:scale-110 transition-transform duration-200 drop-shadow-2xl brightness-150"
           />
-          <span className="text-2xl font-extrabold text-cyan-400 select-none tracking-wide">
+          <span className="text-xl md:text-2xl font-extrabold text-cyan-400 select-none tracking-wide">
             OpenPol
           </span>
         </a>
