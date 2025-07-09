@@ -15,32 +15,35 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <section id="hero" className="relative bg-gray-900 text-white pt-32 pb-28 md:pb-36 overflow-hidden font-[Poppins] mb-16 md:mb-28 scroll-mt-28">
+    <section
+      id="hero"
+      className="relative bg-gray-900 text-white min-h-[70vh] flex items-center justify-center scroll-mt-28 overflow-hidden font-[Poppins] mb-16 md:mb-28"
+    >
       {/* Background video */}
       <div className="absolute inset-0 z-0">
-        <video 
+        <video
           ref={videoRef}
-          autoPlay 
-          loop 
-          muted 
+          autoPlay
+          loop
+          muted
           className="w-full h-full object-cover blur-sm"
         >
           <source src="/img/video/1.mp4" type="video/mp4" />
         </video>
       </div>
-      {/* Overlay for readability - matches theme colors */}
+      {/* Overlay for readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900/90 via-gray-900/70 to-gray-800/80 z-10"></div>
-      <div className="container mx-auto px-6 text-center relative z-20">
-        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 tracking-tight drop-shadow-xl">
+      <div className="container mx-auto px-6 flex flex-col items-center justify-center text-center relative z-20">
+        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 tracking-tight drop-shadow-2xl">
           <span className="block">Adaptacja do AI to konieczność, nie opcja.</span>
           <span className="text-cyan-400 block mt-2">Pomożemy Ci w tym.</span>
         </h1>
-        <p className="text-lg md:text-2xl text-gray-200 max-w-3xl mx-auto mb-10 font-medium drop-shadow">
+        <p className="text-lg md:text-2xl text-gray-200 max-w-2xl md:max-w-3xl mx-auto mb-10 font-medium drop-shadow-lg">
           Wiele firm o ugruntowanej pozycji na rynku stoi przed wyzwaniem AI. Nie wiedzą od czego zacząć. <span className="text-cyan-300 font-semibold">OpenPol</span> przekształca tę niepewność w realną przewagę konkurencyjną.
         </p>
         <button
           onClick={() => setModalOpen(true)}
-          className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-4 px-10 rounded-xl text-xl shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105 inline-block"
+          className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-4 px-10 rounded-xl text-xl shadow-xl transition-transform duration-300 ease-in-out transform hover:scale-105 mb-2"
         >
           Porozmawiajmy o Twojej firmie
         </button>
