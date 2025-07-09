@@ -1,23 +1,50 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
+
+const EMAILJS_PUBLIC_KEY = "0f8Jce-Gsw4GbjCQ_";
+const EMAILJS_SERVICE_ID = "service_m4uai4d";
+const EMAILJS_TEMPLATE_ID = "template_r7rcz39";
+
+emailjs.init(EMAILJS_PUBLIC_KEY);
 
 export const ContactForm = () => {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simple validation
     if (!form.name || !form.email || !form.message) {
       setError('Proszę uzupełnić wymagane pola.');
       return;
     }
-    setSubmitted(true);
+    setSubmitting(true);
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          title: 'Konsultacje',
+          name: form.name,
+          time: new Date().toLocaleString(),
+          message: form.message + (form.phone ? `\n\nTelefon: ${form.phone}` : ''),
+          email: form.email
+        }
+      );
+      setSubmitted(true);
+      setForm({ name: '', email: '', phone: '', message: '' });
+      setTimeout(() => setSubmitted(false), 3000);
+    } catch (err) {
+      setError('Przepraszamy, wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie później.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -84,9 +111,10 @@ export const ContactForm = () => {
       </div>
       <button
         type="submit"
-        className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-transform duration-200 ease-in-out transform hover:scale-105 mt-2"
+        disabled={submitting}
+        className={`bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-transform duration-200 ease-in-out transform hover:scale-105 mt-2 ${submitting ? 'opacity-70 cursor-wait' : ''}`}
       >
-        Wyślij wiadomość
+        {submitting ? 'Wysyłanie...' : 'Wyślij wiadomość'}
       </button>
     </form>
   );
