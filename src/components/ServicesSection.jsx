@@ -10,7 +10,7 @@ export const ServicesSection = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-gray-800">
+    <section id="services" className="py-20 bg-gray-800 mt-16 md:mt-28">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-white">Rozwiązania dla Twojej Firmy</h2>
