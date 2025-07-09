@@ -1,10 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { ConsultationModal } from './ConsultationModal';
 
 // Import Google Fonts in the document head (for demo, add to index.html):
 // <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet" />
 
 export const HeroSection = () => {
   const videoRef = useRef(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -36,10 +38,14 @@ export const HeroSection = () => {
         <p className="text-lg md:text-2xl text-gray-200 max-w-3xl mx-auto mb-10 font-medium drop-shadow">
           Wiele firm o ugruntowanej pozycji na rynku stoi przed wyzwaniem AI. Nie wiedzą od czego zacząć. <span className="text-cyan-300 font-semibold">OpenPol</span> przekształca tę niepewność w realną przewagę konkurencyjną.
         </p>
-        <a href="#contact" className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-4 px-10 rounded-xl text-xl shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105 inline-block">
+        <button
+          onClick={() => setModalOpen(true)}
+          className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-4 px-10 rounded-xl text-xl shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105 inline-block"
+        >
           Porozmawiajmy o Twojej firmie
-        </a>
+        </button>
       </div>
+      <ConsultationModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </section>
   );
 };
