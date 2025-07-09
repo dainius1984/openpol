@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { ConsultationModal } from './ConsultationModal';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const navLinks = [
     { href: '#services', label: 'Rozwiązania' },
     { href: '#about', label: 'Dlaczego my?' },
@@ -33,12 +35,12 @@ export const Header = () => {
               {link.label}
             </a>
           ))}
-          <a
-            href="#contact"
+          <button
+            onClick={() => setModalOpen(true)}
             className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-6 rounded-lg shadow-md transition-transform duration-200 ease-in-out transform hover:scale-105 border-b-4 border-cyan-700"
           >
             Bezpłatna Konsultacja
-          </a>
+          </button>
         </nav>
         <div className="md:hidden">
           <button
@@ -69,15 +71,16 @@ export const Header = () => {
                 {link.label}
               </a>
             ))}
-            <a
-              href="#contact"
+            <button
+              onClick={() => setModalOpen(true)}
               className="w-full text-center bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-4 rounded-lg shadow-md transition-transform duration-200 ease-in-out transform hover:scale-105 mt-2 border-b-4 border-cyan-700"
             >
               Bezpłatna Konsultacja
-            </a>
+            </button>
           </nav>
         </div>
       )}
+      <ConsultationModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </header>
   );
 };
