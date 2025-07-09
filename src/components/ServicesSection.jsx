@@ -18,7 +18,7 @@ export const ServicesSection = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-gray-800 mt-16 md:mt-28 relative overflow-hidden">
+    <section id="services" className="py-20 bg-gray-800 mt-16 md:mt-28 relative overflow-hidden scroll-mt-28">
       {/* Background video */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <video

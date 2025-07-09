@@ -2,7 +2,7 @@ import React from 'react';
 import { CheckCircle } from './Icons';
 
 export const AboutSection = () => (
-  <section id="about" className="py-20 bg-gray-900 text-white">
+  <section id="about" className="py-20 bg-gray-900 text-white scroll-mt-28">
     <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
       <div className="md:w-1/2">
         <div className="relative group">

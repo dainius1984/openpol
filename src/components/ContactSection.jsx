@@ -5,7 +5,7 @@ import { ConsultationModal } from './ConsultationModal';
 export const ContactSection = () => {
   const [modalOpen, setModalOpen] = useState(false);
   return (
-    <section id="contact" className="py-20 bg-gray-900 text-white">
+    <section id="contact" className="py-20 bg-gray-900 text-white scroll-mt-28">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-cyan-400 mb-2">Kontakt</h2>
