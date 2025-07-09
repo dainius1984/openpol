@@ -17,14 +17,6 @@ export const AboutSection = () => (
               playsInline
               className="w-full h-64 md:h-80 object-cover brightness-90 group-hover:brightness-100 transition duration-300 blur-[2px] group-hover:blur-0"
             />
-            {/* Play button overlay for effect */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="bg-white/20 rounded-full p-4 shadow-lg">
-                <svg className="w-10 h-10 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-            </div>
           </div>
         </div>
       </div>
