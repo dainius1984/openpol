@@ -5,15 +5,19 @@ import React from 'react';
 
 export const HeroSection = () => (
   <section className="relative bg-gray-900 text-white pt-32 pb-20 overflow-hidden font-[Poppins]">
-    {/* Background video placeholder */}
+    {/* Background video */}
     <div className="absolute inset-0 z-0">
-      {/* Replace this div with a <video> tag when you have the video */}
-      <div className="w-full h-full bg-gradient-to-br from-cyan-900/60 via-gray-900/80 to-gray-800/90 flex items-center justify-center">
-        <span className="text-3xl md:text-5xl font-black text-cyan-400 opacity-20 select-none">[VIDEO: Business Growth]</span>
-      </div>
+      <video 
+        autoPlay 
+        loop 
+        muted 
+        className="w-full h-full object-cover blur-sm"
+      >
+        <source src="/img/video/1.mp4" type="video/mp4" />
+      </video>
     </div>
-    {/* Overlay for readability */}
-    <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-gray-900/60 to-transparent z-10"></div>
+    {/* Overlay for readability - matches theme colors */}
+    <div className="absolute inset-0 bg-gradient-to-b from-gray-900/90 via-gray-900/70 to-gray-800/80 z-10"></div>
     <div className="container mx-auto px-6 text-center relative z-20">
       <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 tracking-tight drop-shadow-xl">
         <span className="block">Adaptacja do AI to konieczność, nie opcja.</span>
