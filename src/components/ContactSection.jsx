@@ -16,7 +16,6 @@ export const ContactSection = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-cyan-400 mb-2">Kontakt</h2>
           <p className="text-gray-300">Masz pytania? Skontaktuj się z nami!</p>
-          <div className="inline-block w-24 h-1 bg-cyan-500 rounded mt-4"></div>
           <button
             onClick={() => setModalOpen(true)}
             className="mt-8 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-xl text-lg shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
