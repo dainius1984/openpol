@@ -100,7 +100,7 @@ export const ConsultationModal = ({ open, onClose }) => {
         >
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-cyan-400 text-2xl font-bold focus:outline-none"
+            className="absolute top-2 md:top-4 right-2 md:right-4 text-gray-400 hover:text-cyan-400 text-xl md:text-2xl font-bold focus:outline-none"
             aria-label="Zamknij"
             type="button"
           >

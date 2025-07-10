@@ -17,7 +17,7 @@ export const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative bg-gray-900 text-white min-h-[70vh] flex items-center justify-center scroll-mt-28 overflow-hidden font-[Poppins] mb-16 md:mb-28"
+      className="relative bg-gray-900 text-white min-h-screen pt-24 md:pt-0 flex items-center justify-center scroll-mt-28 overflow-hidden font-[Poppins] mb-16 md:mb-28"
     >
       {/* Background video */}
       <div className="absolute inset-0 z-0">
