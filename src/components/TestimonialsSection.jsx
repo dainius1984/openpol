@@ -63,7 +63,7 @@ export const TestimonialsSection = () => {
                     <div className="flex flex-col items-center md:items-start justify-center md:justify-center md:w-1/4 px-2">
                       {testimonial.company === 'BuildMaster Corp' ? (
                         <div className="mb-2 rounded-full border-2 border-cyan-500 bg-white flex items-center justify-center w-10 h-10 md:w-12 md:h-12">
-                          <img src={testimonial.logo} alt={`${testimonial.company} logo`} className="w-8 h-8 md:w-10 md:h-10 object-contain scale-[1.15]" />
+                          <img src={testimonial.logo} alt={`${testimonial.company} logo`} className="w-8 h-8 md:w-10 md:h-10 object-contain scale-[1.3]" />
                         </div>
                       ) : (
                         <img src={testimonial.logo} alt={`${testimonial.company} logo`} className="mb-2 rounded-full border-2 border-cyan-500 w-10 h-10 md:w-12 md:h-12 object-cover" />
