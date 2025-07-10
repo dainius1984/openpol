@@ -17,7 +17,10 @@ export const Header = () => {
   // Hide header on scroll down, show on scroll up (mobile only)
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerWidth > 768) return; // Only on mobile
+      if (window.innerWidth > 768) {
+        setHideOnMobile(false); // Never hide on desktop
+        return;
+      }
       const currentScrollY = window.scrollY;
       if (currentScrollY > lastScrollY.current && currentScrollY > 40) {
         setHideOnMobile(true); // scrolling down
@@ -31,34 +34,34 @@ export const Header = () => {
   }, []);
 
   // Hide header when modal is open
-  const headerHidden = modalOpen || hideOnMobile;
+  const headerHidden = hideOnMobile;
 
   return (
     <header
       className={
-        `bg-gradient-to-b from-gray-900 via-gray-900/90 to-gray-800/80 shadow-lg border-b border-cyan-500/30 fixed top-0 left-0 right-0 z-50 transition-all duration-300
+        `bg-gradient-to-b from-gray-900 via-gray-900/95 to-gray-800/95 shadow-xl border-b-2 border-cyan-400/60 fixed top-0 left-0 right-0 z-50 transition-all duration-300
         ${headerHidden ? 'opacity-0 pointer-events-none translate-y-[-100%]' : 'opacity-100 pointer-events-auto translate-y-0'}
         backdrop-blur-md md:backdrop-blur-none`
       }
-      style={{ minHeight: '56px' }}
+      style={{ minHeight: '64px' }}
     >
-      <div className="container mx-auto px-3 py-1 md:px-6 md:py-2 flex justify-between items-center min-h-[56px]">
-        <a href="/" aria-label="OpenPol homepage" className="flex items-center space-x-3 group transition-all duration-200">
+      <div className="container mx-auto px-3 py-2 md:px-8 md:py-3 flex justify-between items-center min-h-[64px]">
+        <a href="/" aria-label="OpenPol homepage" className="flex items-center space-x-3 group transition-all duration-200 hover:scale-105">
           <img
             src="/img/logo/logo.png"
             alt="OpenPol Logo"
-            className="h-16 md:h-24 w-auto object-contain group-hover:scale-110 transition-transform duration-200 drop-shadow-2xl brightness-150"
+            className="h-14 md:h-20 w-auto object-contain group-hover:scale-110 transition-transform duration-200 drop-shadow-2xl brightness-150"
           />
-          <span className="text-xl md:text-2xl font-extrabold text-cyan-400 select-none tracking-wide">
+          <span className="text-2xl md:text-3xl font-extrabold text-cyan-400 select-none tracking-wide drop-shadow-lg">
             OpenPol
           </span>
         </a>
-        <nav className="hidden md:flex space-x-10 items-center">
+        <nav className="hidden md:flex space-x-12 items-center">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="relative text-white font-semibold tracking-wide hover:text-cyan-400 transition-colors duration-200 after:content-[''] after:block after:h-0.5 after:bg-cyan-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left"
+              className="relative text-white font-semibold tracking-wide text-lg md:text-xl hover:text-cyan-400 transition-colors duration-200 after:content-[''] after:block after:h-0.5 after:bg-cyan-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left px-2 py-1 rounded-lg hover:bg-cyan-400/10"
               style={{ paddingBottom: '2px' }}
             >
               {link.label}
@@ -66,7 +69,7 @@ export const Header = () => {
           ))}
           <button
             onClick={() => setModalOpen(true)}
-            className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-6 rounded-lg shadow-md transition-transform duration-200 ease-in-out transform hover:scale-105 border-b-4 border-cyan-700"
+            className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-7 rounded-xl shadow-lg transition-transform duration-200 ease-in-out transform hover:scale-105 border-b-4 border-cyan-700 text-lg md:text-xl"
           >
             Bezpłatna Konsultacja
           </button>
@@ -74,9 +77,9 @@ export const Header = () => {
         <div className="md:hidden">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-white focus:outline-none"
+            className="text-white focus:outline-none p-2 rounded-lg bg-gray-800/70 hover:bg-cyan-500/30 transition-colors duration-200 shadow"
           >
-            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
