@@ -25,7 +25,7 @@ const testimonials = [
   {
     id: 3,
     company: "BuildMaster Corp",
-    logo: "/img/logo/buildlogo.jpg",
+    logo: "/img/testimonials/buildlogo.jpg",
     image: "/img/testimonials/build1.jpg",
     name: "Lina Patel",
     role: "Kierownik Produkcji",
