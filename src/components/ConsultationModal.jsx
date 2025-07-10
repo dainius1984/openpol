@@ -72,7 +72,7 @@ export const ConsultationModal = ({ open, onClose }) => {
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 z-50 flex items-center justify-center font-[Poppins,sans-serif]"
+        className="fixed inset-0 z-[9999] flex items-center justify-center font-[Poppins,sans-serif]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -92,7 +92,7 @@ export const ConsultationModal = ({ open, onClose }) => {
         </div>
         {/* Modal content */}
         <motion.div
-          className="relative z-10 w-full max-w-lg mx-auto p-4 sm:p-8 md:p-10 bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl mt-0 md:mt-24"
+          className="relative z-[9999] w-full max-w-lg mx-auto p-4 sm:p-8 md:p-10 bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl"
           initial={{ scale: 0.85, opacity: 0, y: 40 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.85, opacity: 0, y: 40 }}

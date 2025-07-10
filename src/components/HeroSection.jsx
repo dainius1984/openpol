@@ -1,12 +1,10 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { ConsultationModal } from './ConsultationModal';
+import React, { useRef, useEffect } from 'react';
 
 // Import Google Fonts in the document head (for demo, add to index.html):
 // <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet" />
 
-export const HeroSection = () => {
+export const HeroSection = ({ setModalOpen }) => {
   const videoRef = useRef(null);
-  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -48,7 +46,6 @@ export const HeroSection = () => {
           Porozmawiajmy o Twojej firmie
         </button>
       </div>
-      <ConsultationModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </section>
   );
 };

@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ConsultationModal } from './ConsultationModal';
 
-export const Header = () => {
+export const Header = ({ setModalOpen }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
   const [hideOnMobile, setHideOnMobile] = useState(false);
   const lastScrollY = useRef(0);
 
@@ -112,7 +110,6 @@ export const Header = () => {
           </nav>
         </div>
       )}
-      <ConsultationModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </header>
   );
 };
