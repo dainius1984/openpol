@@ -12,13 +12,9 @@ export const Header = ({ setModalOpen }) => {
     { href: '#contact', label: 'Kontakt' },
   ];
 
-  // Hide header on scroll down, show on scroll up (mobile only)
+  // Hide header on scroll down, show on scroll up (all screen sizes)
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerWidth > 768) {
-        setHideOnMobile(false); // Never hide on desktop
-        return;
-      }
       const currentScrollY = window.scrollY;
       if (currentScrollY > lastScrollY.current && currentScrollY > 40) {
         setHideOnMobile(true); // scrolling down
