@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
+import { logFormSubmission, logButtonClick } from '../utils/analytics';
 
 const EMAILJS_PUBLIC_KEY = "0f8Jce-Gsw4GbjCQ_";
 const EMAILJS_SERVICE_ID = "service_m4uai4d";
@@ -37,6 +38,8 @@ export const ContactForm = () => {
           email: form.email
         }
       );
+      // Track successful form submission
+      logFormSubmission('Contact Form');
       setSubmitted(true);
       setForm({ name: '', email: '', phone: '', message: '' });
       setTimeout(() => setSubmitted(false), 3000);
@@ -112,6 +115,7 @@ export const ContactForm = () => {
       <button
         type="submit"
         disabled={submitting}
+        onClick={() => logButtonClick('Contact Form Submit')}
         className={`bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-transform duration-200 ease-in-out transform hover:scale-105 mt-2 ${submitting ? 'opacity-70 cursor-wait' : ''}`}
       >
         {submitting ? 'Wysyłanie...' : 'Wyślij wiadomość'}

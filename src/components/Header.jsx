@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { logButtonClick } from '../utils/analytics';
 
 export const Header = ({ setModalOpen }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -62,7 +63,10 @@ export const Header = ({ setModalOpen }) => {
             </a>
           ))}
           <button
-            onClick={() => setModalOpen(true)}
+            onClick={() => {
+              logButtonClick('Header Consultation Button');
+              setModalOpen(true);
+            }}
             className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-7 rounded-xl shadow-lg transition-transform duration-200 ease-in-out transform hover:scale-105 border-b-4 border-cyan-700 text-lg md:text-xl"
           >
             Bezpłatna Konsultacja
@@ -98,7 +102,10 @@ export const Header = ({ setModalOpen }) => {
               </a>
             ))}
             <button
-              onClick={() => setModalOpen(true)}
+              onClick={() => {
+                logButtonClick('Mobile Header Consultation Button');
+                setModalOpen(true);
+              }}
               className="w-full text-center bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-4 rounded-lg shadow-md transition-transform duration-200 ease-in-out transform hover:scale-105 mt-2 border-b-4 border-cyan-700"
             >
               Bezpłatna Konsultacja

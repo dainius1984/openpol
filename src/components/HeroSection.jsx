@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { logButtonClick } from '../utils/analytics';
 
 // Import Google Fonts in the document head (for demo, add to index.html):
 // <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet" />
@@ -40,7 +41,10 @@ export const HeroSection = ({ setModalOpen }) => {
           Wiele firm o ugruntowanej pozycji na rynku stoi przed wyzwaniem AI. Nie wiedzą od czego zacząć. <span className="text-cyan-300 font-semibold">OpenPol</span> przekształca tę niepewność w realną przewagę konkurencyjną.
         </p>
         <button
-          onClick={() => setModalOpen(true)}
+          onClick={() => {
+            logButtonClick('Hero Section Consultation Button');
+            setModalOpen(true);
+          }}
           className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-4 px-10 rounded-xl text-xl shadow-xl transition-transform duration-300 ease-in-out transform hover:scale-105 mb-2"
         >
           Porozmawiajmy o Twojej firmie

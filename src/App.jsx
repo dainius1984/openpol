@@ -1,4 +1,5 @@
 import React from 'react';
+import { initGA, logPageView } from './utils/analytics';
 
 // Importowanie komponentów poszczególnych sekcji
 import { Header } from './components/Header';
@@ -13,6 +14,13 @@ import { ConsultationModal } from './components/ConsultationModal';
 // Główny komponent aplikacji, który renderuje całą stronę
 export default function App() {
   const [modalOpen, setModalOpen] = React.useState(false);
+  
+  // Initialize Google Analytics on component mount
+  React.useEffect(() => {
+    initGA();
+    logPageView();
+  }, []);
+  
   return (
     <div className="bg-gray-900 font-sans">
       <Header setModalOpen={setModalOpen} />

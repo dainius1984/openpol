@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
+import { logModalInteraction, logFormSubmission, logButtonClick } from '../utils/analytics';
 
 const EMAILJS_PUBLIC_KEY = "0f8Jce-Gsw4GbjCQ_";
 const EMAILJS_SERVICE_ID = "service_m4uai4d";
@@ -24,6 +25,8 @@ export const ConsultationModal = ({ open, onClose }) => {
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
+      // Track modal open
+      logModalInteraction('Open');
     } else {
       document.body.style.overflow = '';
     }
@@ -56,6 +59,8 @@ export const ConsultationModal = ({ open, onClose }) => {
           email: form.email
         }
       );
+      // Track successful form submission
+      logFormSubmission('Consultation Modal Form');
       setSubmitted(true);
       setForm({ name: '', email: '', message: '' });
       setTimeout(() => {
@@ -99,7 +104,10 @@ export const ConsultationModal = ({ open, onClose }) => {
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         >
           <button
-            onClick={onClose}
+            onClick={() => {
+              logModalInteraction('Close');
+              onClose();
+            }}
             className="absolute top-2 md:top-4 right-2 md:right-4 text-gray-400 hover:text-cyan-400 text-xl md:text-2xl font-bold focus:outline-none"
             aria-label="Zamknij"
             type="button"
@@ -162,6 +170,7 @@ export const ConsultationModal = ({ open, onClose }) => {
               <button
                 type="submit"
                 disabled={submitting}
+                onClick={() => logButtonClick('Consultation Modal Submit')}
                 className={`w-full bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-cyan-400 text-lg ${submitting ? 'opacity-70 cursor-wait' : ''}`}
               >
                 {submitting ? "Wysyłanie..." : "Wyślij zgłoszenie"}
@@ -172,7 +181,10 @@ export const ConsultationModal = ({ open, onClose }) => {
         {/* Overlay for closing modal */}
         <motion.div
           className="fixed inset-0 z-0 cursor-pointer"
-          onClick={onClose}
+          onClick={() => {
+            logModalInteraction('Close via Overlay');
+            onClose();
+          }}
           aria-label="Zamknij modal"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.5 }}
