@@ -46,6 +46,9 @@ export const Header = ({ setModalOpen }) => {
             src="/img/logo/logo.png"
             alt="OpenPol Logo"
             className="h-14 md:h-20 w-auto object-contain group-hover:scale-110 transition-transform duration-200 drop-shadow-2xl brightness-150"
+            loading="eager"
+            width="80"
+            height="80"
           />
           <span className="text-2xl md:text-3xl font-extrabold text-cyan-400 select-none tracking-wide drop-shadow-lg">
             OpenPol

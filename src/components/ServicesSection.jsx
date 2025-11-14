@@ -4,16 +4,16 @@ import StrategySection from './StrategySection';
 import ImplementationSection from './ImplementationSection';
 import TrainingSection from './TrainingSection';
 
-export const ServicesSection = () => {
+export const ServicesSection = ({ setModalOpen }) => {
   return (
     <section id="services" className="mt-16 md:mt-28">
-      <OpenPolChatSection />
+      <OpenPolChatSection setModalOpen={setModalOpen} />
       <div className="my-8" />
-      <StrategySection />
+      <StrategySection setModalOpen={setModalOpen} />
       <div className="my-8" />
-      <ImplementationSection />
+      <ImplementationSection setModalOpen={setModalOpen} />
       <div className="my-8" />
-      <TrainingSection />
+      <TrainingSection setModalOpen={setModalOpen} />
     </section>
   );
 };

@@ -26,12 +26,12 @@ export default function App() {
       <Header setModalOpen={setModalOpen} />
       <main>
         <HeroSection setModalOpen={setModalOpen} />
-        <ServicesSection />
-        <AboutSection />
-        <TestimonialsSection />
+        <ServicesSection setModalOpen={setModalOpen} />
+        <AboutSection setModalOpen={setModalOpen} />
+        <TestimonialsSection setModalOpen={setModalOpen} />
         <ContactSection />
       </main>
-      <Footer />
+      <Footer setModalOpen={setModalOpen} />
       <ConsultationModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );

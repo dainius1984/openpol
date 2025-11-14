@@ -89,6 +89,8 @@ export const ConsultationModal = ({ open, onClose }) => {
             autoPlay
             loop
             muted
+            playsInline
+            preload="metadata"
             className="w-full h-full object-cover blur-md brightness-75"
           >
             <source src="/img/video/1.mp4" type="video/mp4" />

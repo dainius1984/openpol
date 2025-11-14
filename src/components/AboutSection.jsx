@@ -1,7 +1,8 @@
 import React from 'react';
 import { CheckCircle } from './Icons';
+import { logButtonClick } from '../utils/analytics';
 
-export const AboutSection = () => (
+export const AboutSection = ({ setModalOpen }) => (
   <section id="about" className="py-20 bg-gray-900 text-white scroll-mt-28">
     <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
       <div className="md:w-1/2">
@@ -15,6 +16,7 @@ export const AboutSection = () => (
               loop
               muted
               playsInline
+              preload="metadata"
               className="w-full h-64 md:h-80 object-cover brightness-90 group-hover:brightness-100 transition duration-300 blur-[2px] group-hover:blur-0"
             />
           </div>
@@ -46,6 +48,17 @@ export const AboutSection = () => (
             </div>
           </li>
         </ul>
+        <div className="mt-8 flex justify-center md:justify-start">
+          <button
+            onClick={() => {
+              logButtonClick('About Section Consultation Button');
+              setModalOpen(true);
+            }}
+            className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-xl text-lg shadow-xl transition-transform duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-cyan-400"
+          >
+            Skontaktuj się z nami w sprawie konsultacji AI
+          </button>
+        </div>
       </div>
     </div>
   </section>

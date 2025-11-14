@@ -1,22 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/img/logo/logo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="theme-color" content="#0f172a" />
-    <meta name="description" content="OpenPol - Profesjonalne konsultacje AI, wdrożenia, serwisy i szkolenia dla firm. Sztuczna inteligencja dla biznesu z Wrocławia. Skontaktuj się z nami!" />
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <!-- Google Fonts CDN - Poppins with font-display swap for better performance -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet" />
+    <!-- Preload critical logo -->
+    <link rel="preload" href="%PUBLIC_URL%/img/logo/logo.png" as="image" />
+    <meta name="description" content="OpenPol - Profesjonalne konsultacje AI, wdrożenia, serwisy i szkolenia dla firm z Wrocławia. Transformacja cyfrowa, chatboty dla biznesu, rozwiązania AI i machine learning. Skontaktuj się z nami!" />
     <meta property="og:title" content="OpenPol - AI Konsultacje, Serwisy, Wdrożenia | Wrocław" />
-    <meta property="og:description" content="OpenPol - Profesjonalne konsultacje AI, wdrożenia, serwisy i szkolenia dla firm. Sztuczna inteligencja dla biznesu z Wrocławia." />
+    <meta property="og:description" content="OpenPol - Profesjonalne konsultacje AI, wdrożenia, serwisy i szkolenia dla firm z Wrocławia. Transformacja cyfrowa, chatboty dla biznesu, rozwiązania AI i machine learning." />
     <meta property="og:image" content="%PUBLIC_URL%/img/logo/logo.png" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://openpol.pl/" />
-    <meta name="keywords" content="AI, sztuczna inteligencja, konsultacje AI, wdrożenia AI, serwisy AI, szkolenia AI, Wrocław, OpenPol, automatyzacja, analiza danych, biznes, doradztwo AI, AI consulting, AI services, AI Wroclaw" />
+    <meta name="keywords" content="AI, sztuczna inteligencja, konsultacje AI, wdrożenia AI, serwisy AI, szkolenia AI, Wrocław, OpenPol, automatyzacja, analiza danych, biznes, doradztwo AI, transformacja cyfrowa, chatbot dla firm, rozwiązania AI dla biznesu, machine learning, integracja AI, optymalizacja procesów, inteligentna automatyzacja, AI consulting, AI services, AI Wroclaw, konsultacje AI Wrocław, usługi AI Wrocław, AI Polska, LLM, przetwarzanie języka naturalnego, analiza predykcyjna, systemy AI, narzędzia AI" />
     <meta name="author" content="OpenPol" />
     <link rel="canonical" href="https://openpol.pl/" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="OpenPol - AI Konsultacje, Serwisy, Wdrożenia | Wrocław" />
-    <meta name="twitter:description" content="OpenPol - Profesjonalne konsultacje AI, wdrożenia, serwisy i szkolenia dla firm. Sztuczna inteligencja dla biznesu z Wrocławia." />
+    <meta name="twitter:description" content="OpenPol - Profesjonalne konsultacje AI, wdrożenia, serwisy i szkolenia dla firm z Wrocławia. Transformacja cyfrowa, chatboty dla biznesu, rozwiązania AI i machine learning." />
     <meta name="twitter:image" content="%PUBLIC_URL%/img/logo/logo.png" />
     <script type="application/ld+json">
       {
@@ -41,7 +51,7 @@
           "longitude": 16.855
         },
         "email": "kontakt@openpol.pl",
-        "description": "AI konsultacje, wdrożenia, serwisy i szkolenia dla firm z Wrocławia i okolic.",
+        "description": "AI konsultacje, wdrożenia, serwisy i szkolenia dla firm z Wrocławia i okolic. Transformacja cyfrowa, chatboty dla biznesu, rozwiązania AI i machine learning.",
         "areaServed": "Wrocław, Dolnośląskie, Polska"
       }
     </script>
@@ -73,7 +83,14 @@
     </script>
   </head>
   <body>
-    <noscript>Musisz włączyć JavaScript, aby korzystać z tej aplikacji.</noscript>
+    <noscript>
+      <div style="text-align: center; padding: 50px 20px; background-color: #0f172a; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+        <h1 style="color: #22d3ee; margin-bottom: 20px;">JavaScript jest wymagany</h1>
+        <p style="font-size: 18px; margin-bottom: 30px;">Aby w pełni korzystać z naszej strony, musisz włączyć JavaScript w swojej przeglądarce.</p>
+        <p style="font-size: 16px; color: #94a3b8;">Skontaktuj się z nami: <a href="mailto:kontakt@openpol.pl" style="color: #22d3ee; text-decoration: underline;">kontakt@openpol.pl</a></p>
+        <p style="font-size: 16px; color: #94a3b8; margin-top: 10px;">Telefon: <a href="tel:+48532690876" style="color: #22d3ee; text-decoration: underline;">+48 532 690 876</a></p>
+      </div>
+    </noscript>
 
     <div id="root"></div>
   </body>

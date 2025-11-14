@@ -25,6 +25,8 @@ export const HeroSection = ({ setModalOpen }) => {
           autoPlay
           loop
           muted
+          playsInline
+          preload="metadata"
           className="w-full h-full object-cover blur-sm"
         >
           <source src="/img/video/1.mp4" type="video/mp4" />

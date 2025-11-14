@@ -1,6 +1,7 @@
 import React from 'react';
+import { logButtonClick } from '../utils/analytics';
 
-const OpenPolChatSection = () => (
+const OpenPolChatSection = ({ setModalOpen }) => (
   <section className="flex flex-col md:flex-row items-center justify-center py-16 md:py-28 bg-gray-900 rounded-3xl shadow-2xl mx-2 md:mx-16 my-12 md:my-20">
     {/* Image */}
     <div className="w-full md:w-[55%] flex justify-center items-center md:pr-12 mb-8 md:mb-0">
@@ -9,6 +10,7 @@ const OpenPolChatSection = () => (
           src="/img/services/1.jpg"
           alt="OpenPol Chat - przykład działania"
           className="w-full h-full object-cover rounded-3xl"
+          loading="lazy"
         />
         <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-gray-900/30 to-transparent pointer-events-none" />
       </div>
@@ -20,8 +22,14 @@ const OpenPolChatSection = () => (
         Sztuczna inteligencja dla firm, wdrażana odpowiedzialnie. Wykorzystaj LLM-y z kontrolą, przejrzystością i zgodnością z najwyższymi standardami bezpieczeństwa. Każda interakcja spełnia wymagania compliance i etyki.
       </p>
       <div className="flex justify-center w-full">
-        <button className="bg-white text-gray-900 text-lg md:text-xl font-bold rounded-full px-12 py-5 shadow-xl hover:bg-cyan-600 hover:text-white transition-all duration-200 mb-2 focus:outline-none focus:ring-4 focus:ring-cyan-400">
-          ZOBACZ JAK TO DZIAŁA
+        <button
+          onClick={() => {
+            logButtonClick('OpenPol Chat Section Consultation Button');
+            setModalOpen(true);
+          }}
+          className="bg-white text-gray-900 text-lg md:text-xl font-bold rounded-full px-12 py-5 shadow-xl hover:bg-cyan-600 hover:text-white transition-all duration-200 mb-2 focus:outline-none focus:ring-4 focus:ring-cyan-400"
+        >
+          Skontaktuj się z nami w sprawie konsultacji AI
         </button>
       </div>
     </div>

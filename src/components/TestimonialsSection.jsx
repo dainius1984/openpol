@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { logButtonClick } from '../utils/analytics';
 
 const testimonials = [
   {
@@ -34,7 +35,7 @@ const testimonials = [
   },
 ];
 
-export const TestimonialsSection = () => {
+export const TestimonialsSection = ({ setModalOpen }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
@@ -63,17 +64,17 @@ export const TestimonialsSection = () => {
                     <div className="flex flex-col items-center md:items-start justify-center md:justify-center md:w-1/4 px-2">
                       {testimonial.company === 'BuildMaster Corp' ? (
                         <div className="mb-2 rounded-full border-2 border-cyan-500 bg-white flex items-center justify-center w-10 h-10 md:w-12 md:h-12 overflow-hidden">
-                          <img src={testimonial.logo} alt={`${testimonial.company} logo`} className="w-full h-full object-cover rounded-full" />
+                          <img src={testimonial.logo} alt={`${testimonial.company} logo`} className="w-full h-full object-cover rounded-full" loading="lazy" />
                         </div>
                       ) : (
-                        <img src={testimonial.logo} alt={`${testimonial.company} logo`} className="mb-2 rounded-full border-2 border-cyan-500 w-10 h-10 md:w-12 md:h-12 object-cover" />
+                        <img src={testimonial.logo} alt={`${testimonial.company} logo`} className="mb-2 rounded-full border-2 border-cyan-500 w-10 h-10 md:w-12 md:h-12 object-cover" loading="lazy" />
                       )}
                       <h3 className="text-base md:text-lg font-semibold text-white text-center md:text-left leading-tight">{testimonial.company}</h3>
                       <p className="text-cyan-300 text-xs md:text-sm text-center md:text-left">{testimonial.role}</p>
                     </div>
                     {/* Center: Avatar */}
                     <div className="flex flex-col items-center justify-center md:w-1/5 px-2">
-                      <img src={testimonial.image} alt={testimonial.name} className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-cyan-500/30 object-cover" />
+                      <img src={testimonial.image} alt={testimonial.name} className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-cyan-500/30 object-cover" loading="lazy" />
                     </div>
                     {/* Right: Text and Stars */}
                     <div className="flex-1 flex flex-col justify-center items-center md:items-start px-2">
@@ -113,6 +114,17 @@ export const TestimonialsSection = () => {
               />
             ))}
           </div>
+        </div>
+        <div className="mt-8 flex justify-center">
+          <button
+            onClick={() => {
+              logButtonClick('Testimonials Section Consultation Button');
+              setModalOpen(true);
+            }}
+            className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-xl text-lg shadow-xl transition-transform duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-cyan-400"
+          >
+            Skontaktuj się z nami w sprawie konsultacji AI
+          </button>
         </div>
       </div>
     </section>
