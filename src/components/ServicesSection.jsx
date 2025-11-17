@@ -7,7 +7,7 @@ import TrainingSection from './TrainingSection';
 export const ServicesSection = ({ setModalOpen }) => {
   return (
     <section id="services" className="mt-16 md:mt-28">
-      <OpenPolChatSection setModalOpen={setModalOpen} />
+      <OpenPolChatSection />
       <div className="my-8" />
       <StrategySection setModalOpen={setModalOpen} />
       <div className="my-8" />

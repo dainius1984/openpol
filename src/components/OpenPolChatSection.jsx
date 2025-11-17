@@ -1,8 +1,40 @@
-import React from 'react';
-import { logButtonClick } from '../utils/analytics';
+import React, { useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { logButtonClick, logServiceInterest, logSectionView } from '../utils/analytics';
 
-const OpenPolChatSection = ({ setModalOpen }) => (
-  <section className="flex flex-col md:flex-row items-center justify-center py-16 md:py-28 bg-gray-900 rounded-3xl shadow-2xl mx-2 md:mx-16 my-12 md:my-20">
+const OpenPolChatSection = () => {
+  const sectionRef = useRef(null);
+  const navigate = useNavigate();
+
+  // Track section view and service interest
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            logSectionView('OpenPol Chat Section');
+            logServiceInterest('OpenPol Chat');
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleChatClick = () => {
+    logButtonClick('OpenPol Chat - Wypróbuj Chat');
+    navigate('/chat');
+  };
+
+  return (
+    <section ref={sectionRef} className="flex flex-col md:flex-row items-center justify-center py-16 md:py-28 bg-gray-900 rounded-3xl shadow-2xl mx-2 md:mx-16 my-12 md:my-20">
     {/* Image */}
     <div className="w-full md:w-[55%] flex justify-center items-center md:pr-12 mb-8 md:mb-0">
       <div className="w-[95vw] max-w-[600px] h-[320px] md:h-[420px] bg-gray-800 rounded-3xl flex items-center justify-center border-2 border-gray-700 overflow-hidden shadow-xl relative">
@@ -23,17 +55,15 @@ const OpenPolChatSection = ({ setModalOpen }) => (
       </p>
       <div className="flex justify-center w-full">
         <button
-          onClick={() => {
-            logButtonClick('OpenPol Chat Section Consultation Button');
-            setModalOpen(true);
-          }}
-          className="bg-white text-gray-900 text-lg md:text-xl font-bold rounded-full px-12 py-5 shadow-xl hover:bg-cyan-600 hover:text-white transition-all duration-200 mb-2 focus:outline-none focus:ring-4 focus:ring-cyan-400"
+          onClick={handleChatClick}
+          className="bg-cyan-500 hover:bg-cyan-600 text-white text-lg md:text-xl font-bold rounded-full px-12 py-5 shadow-xl transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-cyan-400"
         >
-          Skontaktuj się z nami w sprawie konsultacji AI
+          Wypróbuj OpenPol Chat →
         </button>
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default OpenPolChatSection; 

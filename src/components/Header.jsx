@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { logButtonClick } from '../utils/analytics';
+import { Link } from 'react-router-dom';
+import { logButtonClick, logNavigationClick, logMobileMenuInteraction, logLogoClick } from '../utils/analytics';
 
 export const Header = ({ setModalOpen }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,7 +42,12 @@ export const Header = ({ setModalOpen }) => {
       style={{ minHeight: '64px' }}
     >
       <div className="container mx-auto px-3 py-2 md:px-8 md:py-3 flex justify-between items-center min-h-[64px]">
-        <a href="/" aria-label="OpenPol homepage" className="flex items-center space-x-3 group transition-all duration-200 hover:scale-105">
+        <Link 
+          to="/" 
+          aria-label="OpenPol homepage" 
+          className="flex items-center space-x-3 group transition-all duration-200 hover:scale-105"
+          onClick={() => logLogoClick()}
+        >
           <img
             src="/img/logo/logo.png"
             alt="OpenPol Logo"
@@ -53,12 +59,13 @@ export const Header = ({ setModalOpen }) => {
           <span className="text-2xl md:text-3xl font-extrabold text-cyan-400 select-none tracking-wide drop-shadow-lg">
             OpenPol
           </span>
-        </a>
+        </Link>
         <nav className="hidden md:flex space-x-12 items-center">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
+              onClick={() => logNavigationClick(link.label, link.href)}
               className="relative text-white font-semibold tracking-wide text-lg md:text-xl hover:text-cyan-400 transition-colors duration-200 after:content-[''] after:block after:h-0.5 after:bg-cyan-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left px-2 py-1 rounded-lg hover:bg-cyan-400/10"
               style={{ paddingBottom: '2px' }}
             >
@@ -77,7 +84,10 @@ export const Header = ({ setModalOpen }) => {
         </nav>
         <div className="md:hidden">
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => {
+              setIsMenuOpen(!isMenuOpen);
+              logMobileMenuInteraction(isMenuOpen ? 'Close' : 'Open');
+            }}
             className="text-white focus:outline-none p-2 rounded-lg bg-gray-800/70 hover:bg-cyan-500/30 transition-colors duration-200 shadow"
           >
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,7 +109,11 @@ export const Header = ({ setModalOpen }) => {
                 key={link.href}
                 href={link.href}
                 className="block text-white font-semibold hover:text-cyan-400 transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  logNavigationClick(link.label, link.href);
+                  logMobileMenuInteraction('Link Click');
+                }}
               >
                 {link.label}
               </a>

@@ -1,11 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ContactForm } from './ContactForm';
 import { ConsultationModal } from './ConsultationModal';
+import { logSectionView } from '../utils/analytics';
 
 export const ContactSection = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const sectionRef = useRef(null);
+
+  // Track section view when it enters viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            logSectionView('Contact Section');
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="contact" className="py-20 bg-gray-900 text-white scroll-mt-28 relative overflow-hidden">
+    <section ref={sectionRef} id="contact" className="py-20 bg-gray-900 text-white scroll-mt-28 relative overflow-hidden">
       {/* Placeholder for future background video */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
         <div className="w-full h-full bg-gradient-to-br from-cyan-900/60 via-gray-900/80 to-gray-800/90 flex items-center justify-center">

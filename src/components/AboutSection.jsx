@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { CheckCircle } from './Icons';
-import { logButtonClick } from '../utils/analytics';
+import { logButtonClick, logSectionView } from '../utils/analytics';
 
-export const AboutSection = ({ setModalOpen }) => (
-  <section id="about" className="py-20 bg-gray-900 text-white scroll-mt-28">
+export const AboutSection = ({ setModalOpen }) => {
+  const sectionRef = useRef(null);
+
+  // Track section view when it enters viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            logSectionView('About Section');
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section ref={sectionRef} id="about" className="py-20 bg-gray-900 text-white scroll-mt-28">
     <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
       <div className="md:w-1/2">
         <div className="relative group">
@@ -62,4 +86,5 @@ export const AboutSection = ({ setModalOpen }) => (
       </div>
     </div>
   </section>
-);
+  );
+};

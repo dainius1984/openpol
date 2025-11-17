@@ -1,8 +1,33 @@
-import React from 'react';
-import { logButtonClick } from '../utils/analytics';
+import React, { useRef, useEffect } from 'react';
+import { logButtonClick, logServiceInterest, logSectionView } from '../utils/analytics';
 
-const TrainingSection = ({ setModalOpen }) => (
-  <section className="flex flex-col md:flex-row items-center justify-center py-16 md:py-28 bg-gray-900 rounded-3xl shadow-2xl mx-2 md:mx-16 my-12 md:my-20">
+const TrainingSection = ({ setModalOpen }) => {
+  const sectionRef = useRef(null);
+
+  // Track section view and service interest
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            logSectionView('Training Section');
+            logServiceInterest('Szkolenia dla Zespołów');
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section ref={sectionRef} className="flex flex-col md:flex-row items-center justify-center py-16 md:py-28 bg-gray-900 rounded-3xl shadow-2xl mx-2 md:mx-16 my-12 md:my-20">
     {/* Text and button */}
     <div className="w-full md:w-[45%] flex flex-col items-center justify-center px-4 md:px-0 order-2 md:order-1">
       <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-8 text-center leading-tight drop-shadow-lg">Szkolenia dla Zespołów</h2>
@@ -34,6 +59,7 @@ const TrainingSection = ({ setModalOpen }) => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default TrainingSection; 

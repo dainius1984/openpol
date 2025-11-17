@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { logButtonClick } from '../utils/analytics';
+import { logButtonClick, logTestimonialNavigation, logSectionView } from '../utils/analytics';
 
 const testimonials = [
   {
@@ -37,21 +37,52 @@ const testimonials = [
 
 export const TestimonialsSection = ({ setModalOpen }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const sectionRef = useRef(null);
+
+  // Track section view when it enters viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            logSectionView('Testimonials Section');
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const nextSlide = () => {
     if (currentIndex < testimonials.length - 1) {
-      setCurrentIndex((prev) => prev + 1);
+      const newIndex = currentIndex + 1;
+      setCurrentIndex(newIndex);
+      logTestimonialNavigation('Next', newIndex);
     }
   };
 
   const prevSlide = () => {
     if (currentIndex > 0) {
-      setCurrentIndex((prev) => prev - 1);
+      const newIndex = currentIndex - 1;
+      setCurrentIndex(newIndex);
+      logTestimonialNavigation('Previous', newIndex);
     }
   };
 
+  const goToSlide = (index) => {
+    setCurrentIndex(index);
+    logTestimonialNavigation('Dot Click', index);
+  };
+
   return (
-    <section id="testimonials" className="bg-gradient-to-b from-gray-900 to-gray-800 py-12 text-white">
+    <section ref={sectionRef} id="testimonials" className="bg-gradient-to-b from-gray-900 to-gray-800 py-12 text-white">
       <div className="container mx-auto px-2 md:px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-cyan-400 animate-fade-in">Co mówią nasi klienci</h2>
         <div className="relative">
@@ -108,7 +139,7 @@ export const TestimonialsSection = ({ setModalOpen }) => {
             {testimonials.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
+                onClick={() => goToSlide(index)}
                 className={`w-3 h-3 rounded-full ${currentIndex === index ? 'bg-cyan-500' : 'bg-gray-500'} hover:bg-cyan-400 transition-colors`}
                 aria-label={`Przejdź do opinii ${index + 1}`}
               />

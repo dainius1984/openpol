@@ -1,11 +1,12 @@
 import React, { useRef, useEffect } from 'react';
-import { logButtonClick } from '../utils/analytics';
+import { logButtonClick, logVideoPlay, logVideoPause, logVideoComplete, logSectionView } from '../utils/analytics';
 
 // Import Google Fonts in the document head (for demo, add to index.html):
 // <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet" />
 
 export const HeroSection = ({ setModalOpen }) => {
   const videoRef = useRef(null);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -13,8 +14,50 @@ export const HeroSection = ({ setModalOpen }) => {
     }
   }, []);
 
+  // Track section view when it enters viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            logSectionView('Hero Section');
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Track video interactions
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handlePlay = () => logVideoPlay('Hero Background Video');
+    const handlePause = () => logVideoPause('Hero Background Video');
+    const handleEnded = () => logVideoComplete('Hero Background Video');
+
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('pause', handlePause);
+    video.addEventListener('ended', handleEnded);
+
+    return () => {
+      video.removeEventListener('play', handlePlay);
+      video.removeEventListener('pause', handlePause);
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="hero"
       className="relative bg-gray-900 text-white min-h-screen pt-24 md:pt-0 flex items-center justify-center scroll-mt-28 overflow-hidden font-[Poppins] mb-16 md:mb-28"
     >

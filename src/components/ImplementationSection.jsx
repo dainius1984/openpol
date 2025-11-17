@@ -1,8 +1,33 @@
-import React from 'react';
-import { logButtonClick } from '../utils/analytics';
+import React, { useRef, useEffect } from 'react';
+import { logButtonClick, logServiceInterest, logSectionView } from '../utils/analytics';
 
-const ImplementationSection = ({ setModalOpen }) => (
-  <section className="flex flex-col md:flex-row items-center justify-center py-16 md:py-28 bg-gray-900 rounded-3xl shadow-2xl mx-2 md:mx-16 my-12 md:my-20">
+const ImplementationSection = ({ setModalOpen }) => {
+  const sectionRef = useRef(null);
+
+  // Track section view and service interest
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            logSectionView('Implementation Section');
+            logServiceInterest('Praktyczne Wdrożenia AI');
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section ref={sectionRef} className="flex flex-col md:flex-row items-center justify-center py-16 md:py-28 bg-gray-900 rounded-3xl shadow-2xl mx-2 md:mx-16 my-12 md:my-20">
     {/* Image */}
     <div className="w-full md:w-[55%] flex justify-center items-center md:pr-12 mb-8 md:mb-0 order-1 md:order-1">
       <div className="w-[95vw] max-w-[600px] h-[320px] md:h-[420px] bg-gray-800 rounded-3xl flex items-center justify-center border-2 border-gray-700 overflow-hidden shadow-xl relative">
@@ -34,6 +59,7 @@ const ImplementationSection = ({ setModalOpen }) => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default ImplementationSection; 
