@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { logButtonClick, logNavigationClick, logMobileMenuInteraction, logLogoClick } from '../utils/analytics';
 
 export const Header = ({ setModalOpen }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hideOnMobile, setHideOnMobile] = useState(false);
   const lastScrollY = useRef(0);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const navLinks = [
     { href: '#services', label: 'Rozwiązania' },
@@ -13,6 +15,29 @@ export const Header = ({ setModalOpen }) => {
     { href: '#testimonials', label: 'Opinie' },
     { href: '#contact', label: 'Kontakt' },
   ];
+
+  // Handle navigation - if not on home page, navigate to home with hash
+  const handleNavClick = (e, href, label) => {
+    e.preventDefault();
+    logNavigationClick(label, href);
+    
+    if (location.pathname !== '/') {
+      // Navigate to home page with hash - HomePage will handle scrolling
+      navigate(`/${href}`);
+    } else {
+      // On home page, just scroll to section
+      const element = document.querySelector(href);
+      if (element) {
+        const headerOffset = 100;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+  };
 
   // Hide header on scroll down, show on scroll up (all screen sizes)
   useEffect(() => {
@@ -65,8 +90,8 @@ export const Header = ({ setModalOpen }) => {
             <a
               key={link.href}
               href={link.href}
-              onClick={() => logNavigationClick(link.label, link.href)}
-              className="relative text-white font-semibold tracking-wide text-lg md:text-xl hover:text-cyan-400 transition-colors duration-200 after:content-[''] after:block after:h-0.5 after:bg-cyan-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left px-2 py-1 rounded-lg hover:bg-cyan-400/10"
+              onClick={(e) => handleNavClick(e, link.href, link.label)}
+              className="relative text-white font-semibold tracking-wide text-lg md:text-xl hover:text-cyan-400 transition-colors duration-200 after:content-[''] after:block after:h-0.5 after:bg-cyan-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left px-2 py-1 rounded-lg hover:bg-cyan-400/10 cursor-pointer"
               style={{ paddingBottom: '2px' }}
             >
               {link.label}
@@ -108,10 +133,10 @@ export const Header = ({ setModalOpen }) => {
               <a
                 key={link.href}
                 href={link.href}
-                className="block text-white font-semibold hover:text-cyan-400 transition-colors duration-200"
-                onClick={() => {
+                className="block text-white font-semibold hover:text-cyan-400 transition-colors duration-200 cursor-pointer"
+                onClick={(e) => {
                   setIsMenuOpen(false);
-                  logNavigationClick(link.label, link.href);
+                  handleNavClick(e, link.href, link.label);
                   logMobileMenuInteraction('Link Click');
                 }}
               >

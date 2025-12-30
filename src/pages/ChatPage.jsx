@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ContactForm } from '../components/ContactForm';
 import { logChatInteraction, logPageView } from '../utils/analytics';
+import { sendChatMessage } from '../utils/chatApi';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
@@ -14,9 +15,11 @@ const ChatPage = () => {
   const inputRef = useRef(null);
   const MAX_INTERACTIONS = 2;
 
-  // Track page view
+  // Track page view and scroll to top
   useEffect(() => {
     logPageView();
+    // Scroll to top when page loads
+    window.scrollTo(0, 0);
   }, []);
 
   // Initial greeting
@@ -54,22 +57,20 @@ const ChatPage = () => {
       timestamp: new Date()
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    const updatedMessages = [...messages, userMessage];
+    setMessages(updatedMessages);
     setInputValue('');
     setInteractionCount(prev => prev + 1);
     setIsLoading(true);
     logChatInteraction('Message Sent', 'OpenPol Chat');
 
-    // TODO: Replace with actual API call to your chat model
-    setTimeout(() => {
-      const botResponses = [
-        'Dziękuję za pytanie! OpenPol Chat oferuje bezpieczne wdrożenie LLM-ów z pełną kontrolą i zgodnością z wymogami compliance. Jakie konkretne potrzeby ma Twoja firma?',
-        'Rozumiem. Aby lepiej pomóc, proszę wypełnij formularz kontaktowy poniżej, a nasz zespół skontaktuje się z Tobą i zaproponuje najlepsze rozwiązanie dostosowane do Twoich potrzeb.'
-      ];
-
+    try {
+      // Try to use NanoChat API
+      const response = await sendChatMessage(updatedMessages);
+      
       const botMessage = {
         id: Date.now() + 1,
-        text: botResponses[Math.min(interactionCount, botResponses.length - 1)],
+        text: response,
         sender: 'bot',
         timestamp: new Date()
       };
@@ -84,13 +85,39 @@ const ChatPage = () => {
           logChatInteraction('Contact Form Shown', 'OpenPol Chat');
         }, 500);
       }
-    }, 1000);
+    } catch (error) {
+      // Fallback to mock responses if API is not available
+      console.warn('NanoChat API not available, using fallback:', error.message);
+      
+      const botResponses = [
+        'Dziękuję za pytanie! OpenPol Chat oferuje bezpieczne wdrożenie LLM-ów z pełną kontrolą i zgodnością z wymogami compliance. Jakie konkretne potrzeby ma Twoja firma?',
+        'Rozumiem. Aby lepiej pomóc, proszę wypełnij formularz kontaktowy poniżej, a nasz zespół skontaktuje się z Tobą i zaproponuje najlepsze rozwiązanie dostosowane do Twoich potrzeb.'
+      ];
+
+      const botMessage = {
+        id: Date.now() + 1,
+        text: botResponses[Math.min(interactionCount, botResponses.length - 1)],
+        sender: 'bot',
+        timestamp: new Date()
+      };
+
+      setMessages(prev => [...prev, botMessage]);
+      setIsLoading(false);
+      logChatInteraction('Bot Response (Fallback)', 'OpenPol Chat');
+
+      if (interactionCount + 1 >= MAX_INTERACTIONS) {
+        setTimeout(() => {
+          setShowContactForm(true);
+          logChatInteraction('Contact Form Shown', 'OpenPol Chat');
+        }, 500);
+      }
+    }
   };
 
   return (
     <div className="bg-gray-900 font-sans min-h-screen flex flex-col">
       <Header setModalOpen={() => {}} />
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col pt-20 md:pt-24">
         {/* Chat Container - Full Height */}
         <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full px-4 py-8">
           {/* Chat Header */}
@@ -196,7 +223,7 @@ const ChatPage = () => {
                   Aby kontynuować, proszę wypełnij formularz kontaktowy, a nasz zespół skontaktuje się z Tobą:
                 </p>
               </div>
-              <ContactForm />
+              <ContactForm redirectOnSuccess={false} />
             </div>
           )}
         </div>

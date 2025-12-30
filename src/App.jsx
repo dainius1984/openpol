@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ChatPage from './pages/ChatPage';
+import ContactSuccessPage from './pages/ContactSuccessPage';
 
 // Główny komponent aplikacji z routingiem
 export default function App() {
@@ -10,6 +11,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/chat" element={<ChatPage />} />
+        <Route path="/contact/success" element={<ContactSuccessPage />} />
       </Routes>
     </Router>
   );

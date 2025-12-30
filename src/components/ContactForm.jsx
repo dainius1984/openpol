@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import { logFormSubmission, logButtonClick } from '../utils/analytics';
 
@@ -8,7 +9,8 @@ const EMAILJS_TEMPLATE_ID = "template_r7rcz39";
 
 emailjs.init(EMAILJS_PUBLIC_KEY);
 
-export const ContactForm = () => {
+export const ContactForm = ({ redirectOnSuccess = true }) => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -40,9 +42,18 @@ export const ContactForm = () => {
       );
       // Track successful form submission
       logFormSubmission('Contact Form');
-      setSubmitted(true);
-      setForm({ name: '', email: '', phone: '', message: '' });
-      setTimeout(() => setSubmitted(false), 3000);
+      
+      if (redirectOnSuccess) {
+        // Redirect to success page after 1 second
+        setTimeout(() => {
+          navigate('/contact/success');
+        }, 1000);
+      } else {
+        // Show success message inline (for chat page)
+        setSubmitted(true);
+        setForm({ name: '', email: '', phone: '', message: '' });
+        setTimeout(() => setSubmitted(false), 3000);
+      }
     } catch (err) {
       setError('Przepraszamy, wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie później.');
     } finally {

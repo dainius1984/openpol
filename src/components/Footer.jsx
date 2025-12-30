@@ -1,8 +1,35 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { logNavigationClick } from '../utils/analytics';
 
-export const Footer = () => (
+export const Footer = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Handle navigation - if not on home page, navigate to home with hash
+  const handleNavClick = (e, href, label) => {
+    e.preventDefault();
+    logNavigationClick(label, href);
+    
+    if (location.pathname !== '/') {
+      // Navigate to home page with hash - HomePage will handle scrolling
+      navigate(`/${href}`);
+    } else {
+      // On home page, just scroll to section
+      const element = document.querySelector(href);
+      if (element) {
+        const headerOffset = 100;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+  };
+
+  return (
   <footer className="bg-gray-900 border-t border-gray-700 text-gray-400">
     <div className="container mx-auto px-6 py-12">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
@@ -31,8 +58,8 @@ export const Footer = () => (
             <li>
               <a 
               href="#services" 
-              onClick={() => logNavigationClick('Footer - Rozwiązania', '#services')}
-              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm"
+              onClick={(e) => handleNavClick(e, '#services', 'Footer - Rozwiązania')}
+              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm cursor-pointer"
             >
               Rozwiązania
             </a>
@@ -40,8 +67,8 @@ export const Footer = () => (
           <li>
             <a 
               href="#about" 
-              onClick={() => logNavigationClick('Footer - Dlaczego my?', '#about')}
-              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm"
+              onClick={(e) => handleNavClick(e, '#about', 'Footer - Dlaczego my?')}
+              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm cursor-pointer"
             >
               Dlaczego my?
             </a>
@@ -49,8 +76,8 @@ export const Footer = () => (
           <li>
             <a 
               href="#testimonials" 
-              onClick={() => logNavigationClick('Footer - Opinie', '#testimonials')}
-              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm"
+              onClick={(e) => handleNavClick(e, '#testimonials', 'Footer - Opinie')}
+              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm cursor-pointer"
             >
               Opinie
             </a>
@@ -58,8 +85,8 @@ export const Footer = () => (
           <li>
             <a 
               href="#contact" 
-              onClick={() => logNavigationClick('Footer - Kontakt', '#contact')}
-              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm"
+              onClick={(e) => handleNavClick(e, '#contact', 'Footer - Kontakt')}
+              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm cursor-pointer"
             >
               Kontakt
             </a>
@@ -83,8 +110,8 @@ export const Footer = () => (
           <li>
             <a 
               href="#services" 
-              onClick={() => logNavigationClick('Footer - OpenPol Chat Service', '#services')}
-              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm"
+              onClick={(e) => handleNavClick(e, '#services', 'Footer - OpenPol Chat Service')}
+              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm cursor-pointer"
             >
               OpenPol Chat
             </a>
@@ -92,8 +119,8 @@ export const Footer = () => (
           <li>
             <a 
               href="#services" 
-              onClick={() => logNavigationClick('Footer - Analiza Danych', '#services')}
-              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm"
+              onClick={(e) => handleNavClick(e, '#services', 'Footer - Analiza Danych')}
+              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm cursor-pointer"
             >
               Analiza Danych i Wzrost
             </a>
@@ -101,8 +128,8 @@ export const Footer = () => (
           <li>
             <a 
               href="#services" 
-              onClick={() => logNavigationClick('Footer - Wdrożenia AI', '#services')}
-              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm"
+              onClick={(e) => handleNavClick(e, '#services', 'Footer - Wdrożenia AI')}
+              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm cursor-pointer"
             >
               Praktyczne Wdrożenia AI
             </a>
@@ -110,8 +137,8 @@ export const Footer = () => (
           <li>
             <a 
               href="#services" 
-              onClick={() => logNavigationClick('Footer - Szkolenia', '#services')}
-              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm"
+              onClick={(e) => handleNavClick(e, '#services', 'Footer - Szkolenia')}
+              className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm cursor-pointer"
             >
               Szkolenia dla Zespołów
             </a>
@@ -143,16 +170,16 @@ export const Footer = () => (
         <div className="flex flex-wrap justify-center md:justify-end gap-4 text-sm">
           <a 
             href="#privacy" 
-            onClick={() => logNavigationClick('Footer - Polityka Prywatności', '#privacy')}
-            className="text-gray-500 hover:text-cyan-400 transition-colors duration-200"
+            onClick={(e) => handleNavClick(e, '#privacy', 'Footer - Polityka Prywatności')}
+            className="text-gray-500 hover:text-cyan-400 transition-colors duration-200 cursor-pointer"
           >
             Polityka Prywatności
           </a>
           <span className="text-gray-600">|</span>
           <a 
             href="#terms" 
-            onClick={() => logNavigationClick('Footer - Regulamin', '#terms')}
-            className="text-gray-500 hover:text-cyan-400 transition-colors duration-200"
+            onClick={(e) => handleNavClick(e, '#terms', 'Footer - Regulamin')}
+            className="text-gray-500 hover:text-cyan-400 transition-colors duration-200 cursor-pointer"
           >
             Regulamin
           </a>
@@ -160,4 +187,5 @@ export const Footer = () => (
       </div>
     </div>
   </footer>
-);
+  );
+};
