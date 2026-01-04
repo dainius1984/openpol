@@ -146,17 +146,6 @@ export const TestimonialsSection = ({ setModalOpen }) => {
             ))}
           </div>
         </div>
-        <div className="mt-8 flex justify-center">
-          <button
-            onClick={() => {
-              logButtonClick('Testimonials Section Consultation Button');
-              setModalOpen(true);
-            }}
-            className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-xl text-lg shadow-xl transition-transform duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-cyan-400"
-          >
-            Skontaktuj się z nami w sprawie konsultacji AI
-          </button>
-        </div>
       </div>
     </section>
   );
