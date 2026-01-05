@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { logButtonClick, logTestimonialNavigation, logSectionView } from '../utils/analytics';
+import { logTestimonialNavigation, logSectionView } from '../utils/analytics';
 
 const testimonials = [
   {

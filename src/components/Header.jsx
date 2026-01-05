@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { logButtonClick, logNavigationClick, logMobileMenuInteraction, logLogoClick } from '../utils/analytics';
+import { logNavigationClick, logMobileMenuInteraction, logLogoClick } from '../utils/analytics';
 
 export const Header = ({ setModalOpen }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

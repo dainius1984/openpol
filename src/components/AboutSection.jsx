@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { CheckCircle } from './Icons';
-import { logButtonClick, logSectionView } from '../utils/analytics';
+import { logSectionView } from '../utils/analytics';
 
 export const AboutSection = ({ setModalOpen }) => {
   const sectionRef = useRef(null);
