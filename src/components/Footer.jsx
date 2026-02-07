@@ -165,7 +165,15 @@ export const Footer = () => {
     <div className="border-t border-gray-800 pt-6">
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <p className="text-sm text-gray-500 text-center md:text-left">
-          &copy; {new Date().getFullYear()} OpenPol. Wszelkie prawa zastrzeżone.
+          &copy; {new Date().getFullYear()} OpenPol. Wszelkie prawa zastrzeżone. |{' '}
+          <a 
+            href="https://www.stalowewitryny.pl" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-cyan-400 transition-colors duration-200"
+          >
+            Projekt i realizacja: stalowewitryny.pl
+          </a>
         </p>
         <div className="flex flex-wrap justify-center md:justify-end gap-4 text-sm">
           <a 
